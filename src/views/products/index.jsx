@@ -152,38 +152,43 @@ const Products = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={!!editProduct} onClose={() => setEditProduct(null)}>
+      <Dialog open={!!editProduct} onClose={() => setEditProduct(null)} fullWidth maxWidth="sm">
         <DialogTitle>Edit Product</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           {editProduct && (
-            <>
-              <TextField
-                margin="dense"
-                label="Title"
-                fullWidth
-                value={editProduct.title}
-                onChange={(e) => setEditProduct({ ...editProduct, title: e.target.value })}
-              />
-              <TextField
-                margin="dense"
-                label="Price"
-                type="number"
-                fullWidth
-                value={editProduct.price}
-                onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
-              />
-              <TextField
-                margin="dense"
-                label="Category"
-                fullWidth
-                value={editProduct.category}
-                onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
-              />
-            </>
+            <Grid container spacing={2} sx={{ mt: 1 }}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Title"
+                  value={editProduct.title}
+                  onChange={(e) => setEditProduct({ ...editProduct, title: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Price"
+                  type="number"
+                  value={editProduct.price}
+                  onChange={(e) => setEditProduct({ ...editProduct, price: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Category"
+                  value={editProduct.category}
+                  onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
+                />
+              </Grid>
+            </Grid>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditProduct(null)}>Cancel</Button>
+          <Button onClick={() => setEditProduct(null)} color="secondary">
+            Cancel
+          </Button>
           <Button
             onClick={() => {
               fetch(`https://fakestoreapi.com/products/${editProduct.id}`, {
@@ -197,6 +202,8 @@ const Products = () => {
                   setEditProduct(null);
                 });
             }}
+            variant="contained"
+            color="primary"
           >
             Save
           </Button>

@@ -15,7 +15,9 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Button
+  Button,
+  Card,
+  Grid
 } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -71,7 +73,7 @@ const Products = () => {
         Products
       </Typography>
 
-      <form onSubmit={handleAddProduct} style={{ marginBottom: '20px' }}>
+      {/* <form onSubmit={handleAddProduct} style={{ marginBottom: '20px' }}>
         <Typography variant="h6" gutterBottom>
           Add New Product
         </Typography>
@@ -81,7 +83,43 @@ const Products = () => {
         <input type="text" name="category" placeholder="Category" value={newProduct.category} onChange={handleInputChange} required />
         <input type="text" name="image" placeholder="Image URL" value={newProduct.image} onChange={handleInputChange} />
         <button type="submit">Add Product</button>
-      </form>
+      </form> */}
+
+      <Card sx={{ p: 3, mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Add New Product
+        </Typography>
+
+        <form onSubmit={handleAddProduct}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField fullWidth label="Title" name="title" value={newProduct.title} onChange={handleInputChange} required />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField
+                fullWidth
+                label="Price"
+                type="number"
+                name="price"
+                value={newProduct.price}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField fullWidth label="Category" name="category" value={newProduct.category} onChange={handleInputChange} required />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField fullWidth label="Image URL" name="image" value={newProduct.image} onChange={handleInputChange} />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="primary" type="submit">
+                Add Product
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Card>
 
       <TableContainer component={Paper}>
         <Table>

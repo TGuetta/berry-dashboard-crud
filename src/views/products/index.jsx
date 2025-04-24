@@ -21,6 +21,8 @@ import {
   Grid
 } from '@mui/material';
 
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -190,6 +192,37 @@ const Products = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Typography variant="h6" sx={{ mt: 5, mb: 2 }}>
+        Products by Category
+      </Typography>
+
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={Object.entries(
+              products.reduce((acc, curr) => {
+                acc[curr.category] = (acc[curr.category] || 0) + 1;
+                return acc;
+              }, {})
+            ).map(([category, count]) => ({ name: category, value: count }))}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            fill="#8884d8"
+            label
+          >
+            {['#8884d8', '#82ca9d', '#ffc658', '#ff8042'].map((color, index) => (
+              <Cell key={`cell-${index}`} fill={color} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+
       <Dialog open={!!editProduct} onClose={() => setEditProduct(null)} fullWidth maxWidth="sm">
         <DialogTitle>Edit Product</DialogTitle>
         <DialogContent dividers>

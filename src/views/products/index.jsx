@@ -55,7 +55,10 @@ const Products = () => {
 
     fetch('https://fakestoreapi.com/products', {
       method: 'POST',
-      body: JSON.stringify(newProduct),
+      body: JSON.stringify({
+        ...newProduct,
+        price: Number(newProduct.price) // 👈 convert to number
+      }),
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => res.json())
@@ -75,18 +78,6 @@ const Products = () => {
       <Typography variant="h4" gutterBottom>
         Products
       </Typography>
-
-      {/* <form onSubmit={handleAddProduct} style={{ marginBottom: '20px' }}>
-        <Typography variant="h6" gutterBottom>
-          Add New Product
-        </Typography>
-
-        <input type="text" name="title" placeholder="Title" value={newProduct.title} onChange={handleInputChange} required />
-        <input type="number" name="price" placeholder="Price" value={newProduct.price} onChange={handleInputChange} required />
-        <input type="text" name="category" placeholder="Category" value={newProduct.category} onChange={handleInputChange} required />
-        <input type="text" name="image" placeholder="Image URL" value={newProduct.image} onChange={handleInputChange} />
-        <button type="submit">Add Product</button>
-      </form> */}
 
       <Card sx={{ p: 3, mb: 4 }}>
         <Typography variant="h6" gutterBottom>
@@ -264,7 +255,11 @@ const Products = () => {
             onClick={() => {
               fetch(`https://fakestoreapi.com/products/${editProduct.id}`, {
                 method: 'PUT',
-                body: JSON.stringify(editProduct),
+                body: JSON.stringify({
+                  ...editProduct,
+                  price: Number(editProduct.price) // 👈 this fixes the NaN issue
+                }),
+
                 headers: { 'Content-Type': 'application/json' }
               })
                 .then((res) => res.json())

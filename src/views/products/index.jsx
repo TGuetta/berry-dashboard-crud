@@ -17,6 +17,7 @@ import {
   TextField,
   Button,
   Card,
+  CardContent,
   Grid
 } from '@mui/material';
 
@@ -120,6 +121,43 @@ const Products = () => {
           </Grid>
         </form>
       </Card>
+
+      <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid item xs={12} sm={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="subtitle2" gutterBottom>
+                Total Products
+              </Typography>
+              <Typography variant="h5">{products.length}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="subtitle2" gutterBottom>
+                Average Price
+              </Typography>
+              <Typography variant="h5">
+                ${products.length > 0 ? (products.reduce((sum, p) => sum + p.price, 0) / products.length).toFixed(2) : 0}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={4}>
+          <Card>
+            <CardContent>
+              <Typography variant="subtitle2" gutterBottom>
+                Top Price
+              </Typography>
+              <Typography variant="h5">${products.length > 0 ? Math.max(...products.map((p) => p.price)).toFixed(2) : 0}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
       <TableContainer component={Paper}>
         <Table>
